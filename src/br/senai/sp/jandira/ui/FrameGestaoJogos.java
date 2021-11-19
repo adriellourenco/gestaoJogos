@@ -1,19 +1,27 @@
 package br.senai.sp.jandira.ui;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import br.senai.sp.jandira.model.Console;
+import br.senai.sp.jandira.model.Fabricante;
+import br.senai.sp.jandira.model.Jogo;
+import br.senai.sp.jandira.repository.FabricanteRepository;
+
 import javax.swing.JLabel;
 import javax.swing.JTextField;
 import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Iterator;
+
 import javax.swing.JComboBox;
 import javax.swing.JCheckBox;
+import javax.swing.BorderFactory;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import java.awt.Color;
 import javax.swing.JScrollPane;
 import javax.swing.JList;
@@ -24,16 +32,37 @@ public class FrameGestaoJogos extends JFrame {
 	private JTextField txtTitulo;
 	private JTextField txtValorEstimado;
 	private JTextField txtObservacoes;
+	private int posicao;
 
 	public FrameGestaoJogos() {
+		setTitle("Cole\u00E7\u00E3o de Jogos");
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 674, 478);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(232, 232, 232));
+		contentPane.setForeground(new Color(0, 0, 0));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		contentPane.setLayout(null);
+		
+		JLabel lblNewLabel = new JLabel("JOGOS");
+		lblNewLabel.setForeground(new Color(0, 191, 255));
+		lblNewLabel.setFont(new Font("Arial", Font.BOLD, 40));
+		lblNewLabel.setBounds(236, 11, 142, 53);
+		contentPane.add(lblNewLabel);
+		
+		JLabel icone = new JLabel();
+		//status.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		icone.setBounds(163, 10, 70, 54);
+		icone.setIcon(new ImageIcon("C:\\Users\\DELL\\Pictures\\videogame.png"));
+		contentPane.add(icone);
+		
+		JLabel icone1 = new JLabel();
+		//status.setBorder(BorderFactory.createLineBorder(Color.BLACK));
+		icone1.setBounds(387, 11, 70, 54);
+		icone1.setIcon(new ImageIcon("C:\\Users\\DELL\\Pictures\\videogame.png"));
+		contentPane.add(icone1);
 		
 		JLabel lblTitulo = new JLabel("T\u00EDtulo do Jogo:");
 		lblTitulo.setFont(new Font("Arial", Font.PLAIN, 14));
@@ -54,11 +83,22 @@ public class FrameGestaoJogos extends JFrame {
 		JComboBox comboBoxFabricante = new JComboBox();
 		comboBoxFabricante.setFont(new Font("Arial", Font.BOLD, 12));
 		comboBoxFabricante.setBounds(127, 111, 203, 26);
+		
+		DefaultComboBoxModel<String> modelFabricantes = new DefaultComboBoxModel<String>();
+		
+		FabricanteRepository fabricantes = new FabricanteRepository();
+		
+		 for (Fabricante fabricante : fabricantes.getFabricantes()) {
+			 modelFabricantes.addElement(fabricante.getNome());
+		 }
+		
+		comboBoxFabricante.setModel(modelFabricantes);
 		contentPane.add(comboBoxFabricante);
 		
 		JCheckBox CheckBoxZerado = new JCheckBox("Zerado");
 		CheckBoxZerado.setFont(new Font("Arial", Font.PLAIN, 14));
 		CheckBoxZerado.setBounds(127, 146, 106, 26);
+		CheckBoxZerado.setBackground(new Color(232, 232, 232));;
 		contentPane.add(CheckBoxZerado);
 		
 		JLabel lblConsole = new JLabel("Console:");
@@ -69,6 +109,14 @@ public class FrameGestaoJogos extends JFrame {
 		JComboBox comboBoxConsole = new JComboBox();
 		comboBoxConsole.setFont(new Font("Arial", Font.PLAIN, 12));
 		comboBoxConsole.setBounds(127, 179, 203, 26);
+		
+		DefaultComboBoxModel<String> modelConsoles = new DefaultComboBoxModel<String>();
+
+		for (Console console : Console.values()) {
+			modelConsoles.addElement(console.getDescrição());
+		}
+		
+		comboBoxConsole.setModel(modelConsoles);
 		contentPane.add(comboBoxConsole);
 		
 		JLabel lblValorEstimado = new JLabel("Valor Estimado:");
@@ -93,12 +141,6 @@ public class FrameGestaoJogos extends JFrame {
 		lblObservacoes.setBounds(34, 255, 89, 26);
 		contentPane.add(lblObservacoes);
 		
-		JButton btnSalvar = new JButton("Salvar");
-		btnSalvar.setForeground(new Color(255, 255, 255));
-		btnSalvar.setBackground(new Color(0, 191, 255));
-		btnSalvar.setBounds(163, 385, 125, 46);
-		contentPane.add(btnSalvar);
-		
 		JLabel lblMeusJogos = new JLabel("Meus Jogos:");
 		lblMeusJogos.setFont(new Font("Arial", Font.PLAIN, 14));
 		lblMeusJogos.setBounds(381, 74, 93, 26);
@@ -122,6 +164,31 @@ public class FrameGestaoJogos extends JFrame {
 		btnDescer.setForeground(new Color(255, 255, 255));
 		btnDescer.setBounds(521, 388, 99, 41);
 		contentPane.add(btnDescer);
+		
+		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setForeground(new Color(255, 255, 255));
+		btnSalvar.setBackground(new Color(0, 191, 255));
+		btnSalvar.setBounds(163, 385, 125, 46);
+		contentPane.add(btnSalvar);
+		
+		btnSalvar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Jogo jogo = new Jogo();
+				jogo.setTitulo(txtTitulo.getText());
+				jogo.setFabricante(null);
+				jogo.setZerado(CheckBoxZerado.getFocusTraversalKeysEnabled());
+				jogo.setConsole(null);
+				jogo.setValor(0);
+				jogo.setObservacao("");
+				
+				System.out.println(jogo.isZerado());
+				
+				
+			}
+		});
 		
 	}
 }
