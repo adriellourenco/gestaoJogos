@@ -35,10 +35,6 @@ public class FabricanteRepository {
 		return fabricantes[posicao];
 	}
 	
-	public Fabricante[] listarTodos() {
-		return fabricantes;
-	}
-	
 	public int getLegth() {
 		return fabricantes.length;
 	}
