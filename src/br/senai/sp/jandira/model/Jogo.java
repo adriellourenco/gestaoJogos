@@ -8,15 +8,6 @@ public class Jogo {
 	private Console console;
 	private double valor;
 	private String observacao;
-	
-	/*public Jogo (String titulo, Fabricante fabricante, boolean zerado, Console console, double valor, String observacao) {
-		this.titulo = titulo;
-		this.fabricante = fabricante;
-		this.zerado = zerado;
-		this.console = console;
-		this.valor = valor;
-		this.observacao = observacao;
-	}*/
 
 	public String getTitulo() {
 		return titulo;
