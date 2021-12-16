@@ -63,13 +63,13 @@ public class FrameGestaoJogos extends JFrame {
 		JLabel icone = new JLabel();
 		// status.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		icone.setBounds(163, 10, 70, 54);
-		icone.setIcon(new ImageIcon("C:\\Users\\DELL\\Pictures\\videogame.png"));
+		icone.setIcon(new ImageIcon("../gestaoJogos/src/br/senai/sp/jandira/images/videogame.png"));
 		contentPane.add(icone);
 
 		JLabel icone1 = new JLabel();
 		// status.setBorder(BorderFactory.createLineBorder(Color.BLACK));
 		icone1.setBounds(387, 11, 70, 54);
-		icone1.setIcon(new ImageIcon("C:\\Users\\DELL\\Pictures\\videogame.png"));
+		icone1.setIcon(new ImageIcon("../gestaoJogos/src/br/senai/sp/jandira/images/videogame.png"));
 		contentPane.add(icone1);
 
 		JLabel lblTitulo = new JLabel("T\u00EDtulo do Jogo:");
@@ -157,13 +157,15 @@ public class FrameGestaoJogos extends JFrame {
 		scrollPane.setViewportView(listJogos);
 
 		JButton btnSubir = new JButton("\u2191");
+		btnSubir.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSubir.setBackground(new Color(0, 191, 255));
-		btnSubir.setForeground(new Color(255, 255, 255));
+		btnSubir.setForeground(Color.WHITE);
 		btnSubir.setBounds(411, 388, 100, 41);
 		contentPane.add(btnSubir);
 		btnSubir.setEnabled(false);
 
 		JButton btnDescer = new JButton("\u2193");
+		btnDescer.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnDescer.setBackground(new Color(0, 191, 255));
 		btnDescer.setForeground(new Color(255, 255, 255));
 		btnDescer.setBounds(521, 388, 99, 41);
@@ -172,6 +174,7 @@ public class FrameGestaoJogos extends JFrame {
 		
 
 		JButton btnSalvar = new JButton("Salvar");
+		btnSalvar.setFont(new Font("Tahoma", Font.BOLD, 14));
 		btnSalvar.setForeground(new Color(255, 255, 255));
 		btnSalvar.setBackground(new Color(0, 191, 255));
 		btnSalvar.setBounds(163, 385, 125, 46);
